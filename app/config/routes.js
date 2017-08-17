@@ -4,9 +4,9 @@ import { Route, IndexRoute, Router, browserHistory } from "react-router";
 
 // Reference the high-level components
 import Main from "../components/main";
-import Form from "../components/Search/children/Form";
+import Search from "../components/children/Search/Form";
 import Saved from "../components/children/Saved";
-import Results from "../components/Search/children/Results";
+import Results from "../components/children/Search/Results";
 
 // Export the Routes
 const routes = (
@@ -17,10 +17,10 @@ const routes = (
     <Route path="/" component={Main}>
 
       {/* If user selects Child1 then show the appropriate component*/}
-      <Route path="Form" component={Form} >
+      <Route path="Search" component={Search} >
 
         {/* Child1 has its own Grandchildren options */}
-        <Route path="Form" component={Form} />
+        <Route path="Search" component={Search} />
         <Route path="Results" component={Results} />
 
       </Route>
@@ -29,7 +29,7 @@ const routes = (
       <Route path="Saved" component={Saved} />
 
       {/* If user selects any other path... we get the Home Route */}
-      <IndexRoute component={Form} />
+      <IndexRoute component={Search} />
 
     </Route>
   </Router>

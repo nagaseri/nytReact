@@ -1,30 +1,74 @@
-import React from "react";
+import React from 'react';
 
-// Include Link component from react router
-var Link = require("react-router").Link;
-
-class Form extends React.Component {
+class Search extends React.Component {
+	constructor() {
+		super();
+		this.state = {
+			topic: '',
+			startYear: '',
+			endYear: ''
+		};
+		this.handleInputChange = this.handleInputChange.bind(this);
+		this.handleButtonClick = this.handleButtonClick.bind(this);
+	}
+	handleInputChange(event) {
+		this.setState({ [event.target.name]: event.target.value });
+	}
+	handleButtonClick() {
+		this.props.setParent(this.state.topic, this.state.startYear, this.state.endYear);
+		console.log("click")
+	}
 	render() {
 		return (
-			<div className="container">
-		        <div className="col-lg-12">
-		          <div className="panel panel-primary">
-		            <div className="panel-heading">
-		              <h3 className="panel-title">Search & Results</h3>
-		            </div>
-		            <div className="panel-body">
-		              <p>I'm child 1!</p>
-	
-		              {/* This code will allow us to automatically dump the correct GrandChild component */}
-		              {this.props.children}
-		              
-		            </div>
-
-		          </div>
-		        </div>
-		    </div>
+			<div className="container-fluid">
+				<div className="panel panel-default">
+				  	<div className="panel-heading">
+				    	<h3 className="panel-title">Search</h3>
+				  	</div>
+				  	<div className="panel-body">
+				  		<label htmlFor="topic">Topic</label>
+				    	<input
+				    		type="text"
+				    		className="form-control"
+				    		id="topic"
+				    		name="topic"
+				    		value={this.state.topic}
+							onChange={this.handleInputChange}
+						/>
+						<br/>
+				  		<label htmlFor="startYear">Start Year (optional)</label>
+				    	<input
+				    		type="number"
+				    		className="form-control"
+				    		id="startYear"
+				    		name="startYear"
+				    		value={this.state.startYear}
+							onChange={this.handleInputChange}
+						/>
+						<br/>
+				  		<label htmlFor="endYear">End Year (optional)</label>
+				    	<input
+				    		type="number"
+				    		className="form-control"
+				    		id="endYear"
+				    		name="endYear"
+				    		value={this.state.endYear}
+							onChange={this.handleInputChange}
+						/>
+						<br/>
+						<div id="searchSubmitDiv">
+							<button
+								onClick={this.handleButtonClick}
+								className="btn btn-default"
+							>
+								Submit
+							</button>
+						</div>
+				  	</div>
+				</div>
+			</div>
 		);
 	}
-};
+}
 
-export default Form;
+export default Search;
