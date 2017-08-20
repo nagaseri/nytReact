@@ -2,9 +2,10 @@
 var express = require("express");
 var mongoose = require("mongoose");
 var bodyParser = require("body-parser");
-var routes = require("./routes/routes");
+var routes = require("./routes/apiRoutes");
 var logger = require("morgan");
-var Article = require("./models/Article");
+var Articles = require("./models/Article");
+var path = require("path");
 
 // Set up a default port, configure mongoose, configure our middleware
 const PORT = process.env.PORT || 8080;
@@ -33,25 +34,25 @@ mongoose.connect(db, (error) => {
 });
 
 // -------------------------------------------------
-app.get("/Results" , (req,res) => {
+app.get("/saved" , (req,res) => {
 
     console.log("Get")
 
-    Article.find({}, (err,doc) => {
+    Articles.find({}, (err,doc) => {
 
         if(err){
 
             console.log(err)
         }
         else{
-            res.send(doc)
+            res.json(doc)
         }
     });
 });
 
-app.post("/Results" , (req,res) => {
+app.post("/saved" , (req,res) => {
 
-    var newArticle = new Article(req.body)
+    var newArticle = new Articles(req.body)
 
     newArticle.save((err,doc) => {
         if(err) {
@@ -63,15 +64,17 @@ app.post("/Results" , (req,res) => {
     })
 });
 
-app.delete("/Saved", (req,res) => {
-    Article.remove({
-      _id: req.body.id
-    }).then((doc) => {
-      res.send(doc);
-    }).catch((err) => {
-      res.send(err);
+app.delete("/saved", (req,res) => {
+    console.log(req.body._id)
+    Articles.findByIdAndRemove({ _id: req.body._id },(err, doc) => {
+    if (err) console.log(err);
+    else res.send(doc);
     });
   });
+
+app.get("/", function(req, res, next) {
+  res.sendFile(path.resolve(__dirname, "./public/index.html"));
+});
 
 // Listener
 app.listen(PORT, () => {

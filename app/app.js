@@ -1,8 +1,8 @@
+// Importing ReactDOM and our routes
 import React from "react";
 import ReactDOM from "react-dom";
 
-import Main from "./components/main";
 import routes from "./config/routes";
 
-// This code here allows us to render our main component (in this case Main)
+// Rendering our router to the "app" div in index.html
 ReactDOM.render(routes, document.getElementById("app"));

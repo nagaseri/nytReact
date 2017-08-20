@@ -3,36 +3,22 @@ import React from "react";
 import { Route, IndexRoute, Router, browserHistory } from "react-router";
 
 // Reference the high-level components
-import Main from "../components/main";
-import Search from "../components/children/Search/Form";
+import Main from "../components/Main";
+import Search from "../components/children/Form";
 import Saved from "../components/children/Saved";
-import Results from "../components/children/Search/Results";
+import Results from "../components/children/Results";
 
 // Export the Routes
-const routes = (
+var routes = (
 
-  // The high level component is the Router component
-  <Router history={browserHistory}>
-
-    <Route path="/" component={Main}>
-
-      {/* If user selects Child1 then show the appropriate component*/}
-      <Route path="Search" component={Search} >
-
-        {/* Child1 has its own Grandchildren options */}
-        <Route path="Search" component={Search} />
-        <Route path="Results" component={Results} />
-
+    <Router history={browserHistory}>
+      <Route path="/" component={Main}>
+        <Route path="search" component={Search} />
+  
+        <Route path="saved" component={Saved} />
+        <IndexRoute component={Search} />
       </Route>
-
-      {/* If user selects Child2 then show the appropriate component*/}
-      <Route path="Saved" component={Saved} />
-
-      {/* If user selects any other path... we get the Home Route */}
-      <IndexRoute component={Search} />
-
-    </Route>
-  </Router>
+    </Router>
 );
 
 export default routes;

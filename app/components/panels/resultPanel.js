@@ -1,5 +1,5 @@
 import React from "react";
-import Helpers from "../../utils/helpers";
+import Helpers from "../utils/helper";
 
 class resultPanel extends React.Component {
 	constructor(props) {

@@ -1,9 +1,8 @@
 import React from 'react';
-import Search from './children/Search/Form';
-import Results from './children/Search/Results';
+import Search from './children/Form';
+import Results from './children/Results';
 import Saved from './children/Saved';
-
-import helpers from '../utils/helpers';
+var Link = require("react-router").Link;
 
 class Main extends React.Component {
 
@@ -15,20 +14,6 @@ class Main extends React.Component {
       startYear: '',
       endYear: ''
     }
-    this.setParent=this.setParent.bind(this);
-  }
-
-  setParent(topic, startYear, endYear) {
-    console.log("set Parent working")
-    this.setState({
-      topic: topic,
-      startYear: startYear,
-      endYear: endYear
-    })
-  }
-
-  getSaved() {
-    this.child.getSaved();
   }
 
   render() {
@@ -38,21 +23,11 @@ class Main extends React.Component {
           <div className="jumbotron">
             <h1>Scrub the New York Times!</h1>
             <p><em>Search for articles and annotate articles of interest!</em></p>
-            <a href="/Search"><button className="btn btn-default">Search</button></a>
-            <a href="/Saved"><button className="btn btn-default">Saved Articles</button></a>
-            <a href="/Results"><button className="btn btn-default">Results</button></a>
+            <Link to="/search"><button className="btn btn-default">Search</button></Link>
+            <Link to="/saved"><button className="btn btn-default">Saved Articles</button></Link>
           </div>
       <div className="container-fluid">
-        <Search setParent={this.setParent}/>
-        <Results
-          topic={this.state.topic}
-          startYear={this.state.startYear}
-          endYear={this.state.endYear}
-          getSaved={this.getSaved}
-        />
-        <Saved
-          ref={instance => { this.child = instance; }}
-        />
+        {this.props.children}
       </div>
     </div>
   </div>

@@ -13,14 +13,15 @@ const Helpers = {
 		}
 		return axios.get(queryURL);
 	},
-	saveArticle: (title, url) => {
-		return axios.post('/Results', {title: title, url: url});
+	saveArticle: (title, url, body) => {
+		return axios.post('/saved', {title: title, url: url, body:body});
 	},
 	getSaved: () => {
-	return axios.get('/Results');
+	return axios.get('/saved');
 	},
 	deleteArticle: (id) => {
-		return axios.delete('/Saved', {_id: id});
+		console.log(id);
+		return axios.delete('/saved', {_id: id});
 	},
 };
 
